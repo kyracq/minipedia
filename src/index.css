@@ -1,13 +1,173 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root {
+  --background-color: white;
+  --primary-text-color: black;
+  --placeholder-text-color: grey;
+  --focus-within-color: darkgrey;
+  --search-box-border-color: #dfe1e5;
+}
+[data-theme="dark"] {
+  --background-color: #331d2c;
+  --primary-text-color: #efe1d1;
+  --placeholder-text-color: #cdc1b3;
+  --focus-within-color: #ffffff;
+  --search-box-border-color: #f1e4d5;
+}
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  font-family: 'Noto Sans', sans-serif;
+  background-color: var(--background-color);
+  color: var(--primary-text-color);
+  transition:
+    background-color 0.4s ease-in-out,
+    color 0.4s ease-in-out;
+}
+.page-content {
+  align-content: center;
+  flex: 1;
+}
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+ header {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+  max-width: 768px;
+  margin: 0 auto;
+  width: 100%;
+ }
+ h1 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 42px;
+  margin-bottom: 16px;
+ }
+ h1 button {
+  font-size: 42px;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--primary-text-color);
+  transition: color 0.4s ease-in-out;
+ }
+ .byline {
+  padding-bottom: 16px;
+  text-align: center;
+  font-family: 'Josefin Sans', sans-serif;
+ }
+ .header-wrapper {
+  display: flex;
+ }
+ .spacing {
+  flex: 1;
+ }
+ .theme-button {
+  font-size: 1.2em;
+  margin: 16px;
+  cursor: pointer;
+  color: var(--primary-text-color);
+ }
+ button {
+  background: none;
+  border: none;
+ }
+ .homepage {
+  text-align: center;
+ }
+ .search-box {
+  display: flex;
+  align-items: center;
+  color: var(--placeholder-text-color);
+  justify-content: center;
+  border: 1px solid var(--search-box-border-color);
+  border-radius: 24px;
+  overflow: hidden;
+  padding: 8px 16px;
+  width: 100%;
+  max-width: 480px;
+  margin-bottom: 16px;
+  font-family: 'Noto Sans', sans-serif;
+  transition:
+    border 0.4s ease-in-out,
+    color 0.4s ease-in-out;
+ }
+.search-box input {
+  display: block;
+  appearance: none;
+  outline: none;
+  color: var(--primary-text-color);
+  background-color: var(--background-color);
+  border: none;
+  padding-left: 8px;
+  width: 100%;
+  transition:
+    background-color 0.4s ease-in-out,
+    color 0.4s ease-in-out;
+}
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+::placeholder {
+  color: var(--placeholder-text-color);
+  transition: color 0.4s ease-in-out;
+}
+.search-box:focus-within {
+  border-color: var(--focus-within-color);
+  transition: border 0.4s ease-in-out,
+}
+.results {
+  max-width: 768px;
+  margin: 0 auto;
+  width: 100%;
+}
+.result {
+  width: 100%;
+  margin-bottom: 16px;
+  display: inline-block;
+  position: relative;
+}
+.result-title {
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+.results-count {
+  font-size: 14px;
+}
+.result p {
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+.result p .searchmatch {
+  text-decoration: underline;
+}
+.result a {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 14px;
+}
+.read-more {
+  display: inline-block;
+  padding-bottom: 1px;
+  background-image: linear-gradient(var(--primary-text-color) 0 0);
+  background-position: 0 100%; /*OR bottom left*/
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  transition:
+    background-size 0.3s,
+    background-position 0s 0.3s, /*change after the size immediately*/
+    background-color 0.4s;
+}
+.read-more:hover {
+  background-position: 100% 100%; /*OR bottom right*/
+  background-size: 100% 1px;
 }
