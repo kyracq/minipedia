@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.e286b514.css",
-    "main.js": "/static/js/main.b374f586.js",
-    "static/js/453.2b99db16.chunk.js": "/static/js/453.2b99db16.chunk.js",
-    "index.html": "/index.html",
-    "main.e286b514.css.map": "/static/css/main.e286b514.css.map",
-    "main.b374f586.js.map": "/static/js/main.b374f586.js.map",
-    "453.2b99db16.chunk.js.map": "/static/js/453.2b99db16.chunk.js.map"
+    "main.css": "/minipedia/static/css/main.e286b514.css",
+    "main.js": "/minipedia/static/js/main.0b36c0da.js",
+    "static/js/453.2b99db16.chunk.js": "/minipedia/static/js/453.2b99db16.chunk.js",
+    "index.html": "/minipedia/index.html",
+    "main.e286b514.css.map": "/minipedia/static/css/main.e286b514.css.map",
+    "main.0b36c0da.js.map": "/minipedia/static/js/main.0b36c0da.js.map",
+    "453.2b99db16.chunk.js.map": "/minipedia/static/js/453.2b99db16.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e286b514.css",
-    "static/js/main.b374f586.js"
+    "static/js/main.0b36c0da.js"
   ]
 }
