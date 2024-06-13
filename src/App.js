@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { CiLight, CiDark } from "react-icons/ci";
 
@@ -7,6 +7,18 @@ function App() {
   const [results, setResults] = useState([]);
   const [searchInfo, setSearchInfo] = useState({});
   const [theme, setTheme] = useState("");
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    if (mq.matches) {
+      setTheme("dark");
+    }
+
+    // This callback will fire if the perferred color scheme changes without a reload
+    mq.addEventListener("change", (evt) =>
+      evt.matches ? setTheme("dark") : setTheme("light")
+    );
+  }, []);
 
   const handleSearch = async (e) => {
     e.preventDefault();
