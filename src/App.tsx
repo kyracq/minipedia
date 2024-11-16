@@ -1,12 +1,41 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { CiLight, CiDark } from "react-icons/ci";
 
+type Result = {
+  pageid: string;
+  title: string;
+  snippet: string;
+};
+
+type SearchInfo = {
+  totalhits?: number;
+};
+
 function App() {
   const [search, setSearch] = useState("");
-  const [results, setResults] = useState([]);
-  const [searchInfo, setSearchInfo] = useState({});
+  const [offset, setOffset] = useState(0);
+  const [results, setResults] = useState<Result[]>([]);
+  const [searchInfo, setSearchInfo] = useState<SearchInfo>({});
   const [theme, setTheme] = useState("");
+
+  const fetchResults = useCallback(async (newSearch: boolean) => {
+    const endpoint = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=20&srsearch=${search}&sroffset=${newSearch ? 0 : offset}`;
+    const response = await fetch(endpoint);
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    const json = await response.json();
+    if (newSearch) {
+      setResults(json.query.search);
+    } else {
+      setResults([...results, ...json.query.search]);
+      setSearchInfo(json.query.searchinfo);
+    }
+    if (json.continue) {
+      setOffset(json.continue.sroffset);
+    }
+  }, [search, results, offset]);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
@@ -18,20 +47,23 @@ function App() {
     mq.addEventListener("change", (evt) =>
       evt.matches ? setTheme("dark") : setTheme("light")
     );
-  }, []);
 
-  const handleSearch = async (e) => {
+    const handleScroll = async () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop !==
+        document.documentElement.offsetHeight
+      )
+        return;
+      await fetchResults(false);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [fetchResults]);
+
+  const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (search === "") return;
-
-    const endpoint = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=20&srsearch=${search}`;
-    const response = await fetch(endpoint);
-    if (!response.ok) {
-      throw Error(response.statusText);
-    }
-    const json = await response.json();
-    setResults(json.query.search);
-    setSearchInfo(json.query.searchinfo);
+    fetchResults(true);
   };
 
   const toggleTheme = () => {
